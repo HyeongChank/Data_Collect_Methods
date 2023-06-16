@@ -40,20 +40,12 @@ y = label_encoder.fit_transform(labels)
 # 데이터를 훈련 세트와 테스트 세트로 분리합니다.
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 
-# 그리드 검색을 위한 파라미터 그리드를 정의합니다.
-# param_grid = {
-#     'n_estimators': [100, 200, 300],
-#     'max_depth': [None, 5, 10],
-#     'min_samples_split': [2, 5, 10],
-#     'min_samples_leaf': [1, 2, 4],
-#     'max_features': ['auto', 'sqrt']
-# }
 param_grid = {
-    'n_estimators': [50, 100],
-    'max_depth': [None, 3],
-    'min_samples_split': [1, 3],
-    'min_samples_leaf': [1, 2],
-    'max_features': ['sqrt']
+    'n_estimators': [100, 200, 300],
+    'max_depth': [None, 5, 10],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'max_features': ['auto', 'sqrt']
 }
 
 # 랜덤 포레스트 모델 생성
@@ -68,5 +60,9 @@ print("Best Parameters:", grid_search.best_params_)
 print("Best Model:", grid_search.best_estimator_)
 
 # 최적의 모델로 테스트 데이터 평가
-y_pred = grid_search.best_estimator
+y_pred = grid_search.best_estimator_.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
+
+# 모델 저장하기
+with open('./model/grid_search_rf.pickle', 'wb') as f:
+    pickle.dump(rf_model, f)
