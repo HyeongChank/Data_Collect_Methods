@@ -10,3 +10,7 @@
 - requirements
     - pip freeze > requirements.txt
     - pip install -r requirements.txt
+
+
+- chromedriver 설치 시 주의사항
+chrome 버전이랑 맞춰야 함
